@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
 
@@ -42,34 +43,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Future<int> counter;
-  late Stream<int> ticks;
-  late Stream<int> controlledTicks = Stream.empty();
-
   @override
   void initState() {
     super.initState();
-    counter = api.getCounter();
-    ticks = api.tick();
   }
 
-  void _incrementCounter() {
-    setState(() {
-      counter = api.increment();
-    });
-  }
-
-  void _startStream() {
-    setState(() {
-      controlledTicks = api.startStream();
-    });
-  }
-
-  void _stopStream() {
-    setState(() {
-      api.stopStream();
-    });
-  }
+  String _rustTimerValue = '';
+  String _dartTimerValue = '';
 
   @override
   Widget build(BuildContext context) {
@@ -81,54 +61,42 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            ElevatedButton(
+              child: Text('Start Heavy Work in Rust'),
+              onPressed: () async {
+                var st = Stopwatch()..start();
+                  await api.doHeavyWork();
+                st.stop();
+                setState(() {
+                  _rustTimerValue = st.elapsedMilliseconds.toString() + ' Milliseconds';
+                });
+              },
             ),
-            FutureBuilder<List<dynamic>>(
-                future: Future.wait([counter]),
-                builder: (context, snap) {
-                  final data = snap.data;
-                  if (data == null) {
-                    return const Text("Loading");
-                  }
-                  return Text(
-                    '${data[0]}',
-                    style: Theme.of(context).textTheme.headline4,
-                  );
-                }),
-            StreamBuilder<int>(
-                stream: ticks,
-                builder: (context, snap) {
-                  final data = snap.data;
-                  if (data == null) {
-                    return const Text("Loading");
-                  }
-                  return Text(
-                    'tick: $data',
-                    style: Theme.of(context).textTheme.headline4,
-                  );
-                }),
-            TextButton(onPressed: _startStream, child: Text("Start Stream")),
-            TextButton(onPressed: _stopStream, child: Text("Stop Stream")),
-            StreamBuilder<int>(
-                stream: controlledTicks,
-                builder: (context, snap) {
-                  final data = snap.data;
-                  if (data == null) {
-                    return const Text("Loading");
-                  }
-                  return Text(
-                    'tick: $data',
-                    style: Theme.of(context).textTheme.headline4,
-                  );
-                }),
+            SizedBox(
+              height: 20,
+            ),
+            Text(_rustTimerValue),
+            Divider(
+              height: 50,
+              color: Colors.blue,
+            ),
+            ElevatedButton(
+              child: Text('Start Same Heavy Work in Dart'),
+              onPressed: () async {
+                var st = Stopwatch()..start();
+                //Do Heavy Work Here
+                st.stop();
+                setState(() {
+                  _dartTimerValue = st.elapsedMilliseconds.toString() + ' Milliseconds';
+                });
+              },
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(_dartTimerValue),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
