@@ -1,9 +1,10 @@
 # flutter_rust_example
 
 This is a fork of [sccheruku](https://github.com/sccheruku)/**[flutter_rust_example](https://github.com/sccheruku/flutter_rust_example)** (with some changes)
+
 The following steps demonstrate how to connect a flutter app to rust using [flutter_rust_bridge](https://github.com/fzyzcjy/flutter_rust_bridge), **but just in case you want to build it for android**
 
-*I'm just sharing my experiance and there could be some mistakes. 
+*I'm just sharing my experiance and there could be some mistakes. Please let me know if you found any one.
 
 Necessary packages in dart side (use last versions):
 ```yaml
