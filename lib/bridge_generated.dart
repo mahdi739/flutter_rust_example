@@ -13,6 +13,10 @@ abstract class Rust {
   Future<List<String>> doHeavyWork({dynamic hint});
 
   FlutterRustBridgeTaskConstMeta get kDoHeavyWorkConstMeta;
+
+  List<String> doLightWork({dynamic hint});
+
+  FlutterRustBridgeTaskConstMeta get kDoLightWorkConstMeta;
 }
 
 class RustImpl implements Rust {
@@ -36,6 +40,22 @@ class RustImpl implements Rust {
   FlutterRustBridgeTaskConstMeta get kDoHeavyWorkConstMeta =>
       const FlutterRustBridgeTaskConstMeta(
         debugName: "do_heavy_work",
+        argNames: [],
+      );
+
+  List<String> doLightWork({dynamic hint}) {
+    return _platform.executeSync(FlutterRustBridgeSyncTask(
+      callFfi: () => _platform.inner.wire_do_light_work(),
+      parseSuccessData: _wire2api_StringList,
+      constMeta: kDoLightWorkConstMeta,
+      argValues: [],
+      hint: hint,
+    ));
+  }
+
+  FlutterRustBridgeTaskConstMeta get kDoLightWorkConstMeta =>
+      const FlutterRustBridgeTaskConstMeta(
+        debugName: "do_light_work",
         argNames: [],
       );
 
@@ -182,6 +202,16 @@ class RustWire implements FlutterRustBridgeWireBase {
           'wire_do_heavy_work');
   late final _wire_do_heavy_work =
       _wire_do_heavy_workPtr.asFunction<void Function(int)>();
+
+  WireSyncReturn wire_do_light_work() {
+    return _wire_do_light_work();
+  }
+
+  late final _wire_do_light_workPtr =
+      _lookup<ffi.NativeFunction<WireSyncReturn Function()>>(
+          'wire_do_light_work');
+  late final _wire_do_light_work =
+      _wire_do_light_workPtr.asFunction<WireSyncReturn Function()>();
 
   void free_WireSyncReturn(
     WireSyncReturn ptr,

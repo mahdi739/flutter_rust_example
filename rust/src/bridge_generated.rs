@@ -31,6 +31,16 @@ fn wire_do_heavy_work_impl(port_: MessagePort) {
         move || move |task_callback| Ok(do_heavy_work()),
     )
 }
+fn wire_do_light_work_impl() -> support::WireSyncReturn {
+    FLUTTER_RUST_BRIDGE_HANDLER.wrap_sync(
+        WrapInfo {
+            debug_name: "do_light_work",
+            port: None,
+            mode: FfiCallMode::Sync,
+        },
+        move || Ok(do_light_work()),
+    )
+}
 // Section: wrapper structs
 
 // Section: static checks
