@@ -43,8 +43,8 @@ cargo install cargo-ndk
 ```
 
 Make sure you have LLVM. I installed it with visual studio. I don't know the other ways but in this way you should download Visual Studio Installer from here:
-https://visualstudio.microsoft.com/downloads/
-Then select **Desktop development with C++**
+https://visualstudio.microsoft.com/downloads/  
+Then select **Desktop development with C++**  
 *Probably you'd better make sure these two packages are selected from individual components:*
 ![[Screenshot 2023-02.jpg]]
 
@@ -52,10 +52,10 @@ Now run this command:
 ```shell
 flutter_rust_bridge_codegen --rust-input rust/src/api.rs --dart-output lib/bridge_generated.dart  --llvm-path 'C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\Llvm\x64'
 ```
-`rust-input` refers to the rust file that ypu want to yous its functions in dart
-`dart-output` refers to the dart file that will be generated based on your rust file
-(If you want to have multiple rust files, see [here](https://cjycode.com/flutter_rust_bridge/feature/multiple_files.html))
-`llvm-path` refers to the address of the LLVM in your computer. 
+`rust-input` refers to the rust file that ypu want to yous its functions in dart  
+`dart-output` refers to the dart file that will be generated based on your rust file  
+(If you want to have multiple rust files, see [here](https://cjycode.com/flutter_rust_bridge/feature/multiple_files.html))  
+`llvm-path` refers to the address of the LLVM in your computer.
 
 then go to your rust directory
 ```shell
@@ -65,8 +65,8 @@ and run this:
 ```shell
 cargo ndk -t armeabi-v7a -t arm64-v8a -t x86 -t x86_64 -o ../android/app/src/main/jniLibs build --release
 ```
-`-o` refers to the output folder
-`-t` refers to the targets you want to build for.
+`-o` refers to the output folder  
+`-t` refers to the targets you want to build for.  
 *for each target, you should have installed them with rustup first:*
 ```shell
 rustup target add aarch64-linux-android armv7-linux-androideabi x86_64-linux-android i686-linux-android
