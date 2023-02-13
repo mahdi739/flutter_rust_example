@@ -46,7 +46,7 @@ Make sure you have LLVM. I installed it with visual studio. I don't know the oth
 https://visualstudio.microsoft.com/downloads/  
 Then select **Desktop development with C++**  
 *Probably you'd better make sure these two packages are selected from individual components:*
-![[https://github.com/mahdi739/flutter_rust_example/blob/main/Screenshot%202023-02.jpg]]
+![(https://github.com/mahdi739/flutter_rust_example/blob/main/Screenshot%202023-02.jpg)]
 
 Now run this command:
 ```shell
