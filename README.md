@@ -45,8 +45,8 @@ cargo install cargo-ndk
 Make sure you have LLVM. I installed it with visual studio. I don't know the other ways but in this way you should download Visual Studio Installer from here:
 https://visualstudio.microsoft.com/downloads/  
 Then select **Desktop development with C++**  
-*Probably you'd better make sure these two packages are selected from individual components:*
-![[Screenshot 2023-02.jpg]]
+*Probably you'd better make sure these two packages are selected from individual components:*  
+![Individual Components](https://github.com/mahdi739/flutter_rust_example/blob/main/Screenshot%202023-02.jpg)
 
 Now run this command:
 ```shell
